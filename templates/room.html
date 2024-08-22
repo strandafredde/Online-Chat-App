@@ -24,9 +24,10 @@
             </div>
             <script type="text/javascript">
                 var socketio = io();
-
-                const form = document.getElementById("messages");
-
+            
+                const form = document.getElementById("form");
+                const messageElement = document.getElementById("message");
+            
                 const createMessage = (name, msg) => {
                     const content = `
                     <div class="text">
@@ -38,14 +39,14 @@
                         </span>
                     </div>
                     `;
-                messages.innerHTML += content;
+                    document.getElementById("messages").innerHTML += content;
                 };
-
+            
                 socketio.on("message", (data) => {
                     createMessage(data.name, data.msg);
                 });
+            
                 const sendMessage = () => {
-                    const messageElement = document.getElementById("message");
                     if (!messageElement) {
                         console.error("Message input element not found");
                         return;
@@ -55,6 +56,11 @@
                     socketio.emit("message", { msg: message });
                     messageElement.value = "";
                 };
+            
+                form.addEventListener("submit", (event) => {
+                    event.preventDefault();
+                    sendMessage();
+                });
             </script>
             {% for msg in messages %}
             <script type="text/javascript">
