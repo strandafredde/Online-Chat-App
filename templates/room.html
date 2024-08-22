@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chatroom</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/room.css') }}">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+                integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+                crossorigin="anonymous">
+        </script>
+    </head>
+    <body>
+
+        <h1>Chatroom: {{room}}</h1>
+        <div class="chat">
+            <div class="messages" id="messages"></div>>
+            </div>
+                <form id="form" action="">
+                    <input id="message" rows="3" autocomplete="off" placeholder="Message" name="message"/>
+                    <button type="button" name="send" id="send-button" onclick="sendMessage()">Send</button>
+                </form>
+            </div>
+            <script type="text/javascript">
+                var socketio = io();
+
+                const form = document.getElementById("messages");
+
+                const createMessage = (name, msg) => {
+                    const content = `
+                    <div class="text">
+                        <span>
+                            <strong>${name}</strong>: ${msg}
+                        </span>
+                        <span class="muted">
+                            ${new Date().toLocaleTimeString()}
+                        </span>
+                    </div>
+                    `;
+                messages.innerHTML += content;
+                };
+
+                socketio.on("message", (data) => {
+                    createMessage(data.name, data.msg);
+                });
+                const sendMessage = () => {
+                    const messageElement = document.getElementById("message");
+                    if (!messageElement) {
+                        console.error("Message input element not found");
+                        return;
+                    }
+                    const message = messageElement.value;
+                    if (message == "") return;
+                    socketio.emit("message", { msg: message });
+                    messageElement.value = "";
+                };
+            </script>
+            {% for msg in messages %}
+            <script type="text/javascript">
+            createMessage("{{msg.name}}", "{{msg.msg}}");
+            </script>
+            {% endfor %}
+    </body>
+
+
+
+</html>
