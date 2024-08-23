@@ -1,7 +1,7 @@
 # En Online Chat-applikation skapad med Flask och Flask-SocketIO
 
 ## Översikt
-Detta är en online chat-applikation byggd med hjälp av Flask och Flask-SocketIO. Applikationen gör det möjligt för flera användare att gå med i ett chattrum och kommunicera i realtid.
+Detta är en online chat-applikation byggd med hjälp av Flask och Flask-SocketIO. Applikationen gör det möjligt för flera användare att gå med i egna chattrum och kommunicera i realtid.
 
 ## Bibliotek och Verktyg
 För att utveckla denna chat-applikation användes följande bibliotek och verktyg:
@@ -26,7 +26,7 @@ För att utveckla denna chat-applikation användes följande bibliotek och verkt
 
 1. **Klona repot:**
     ```bash
-    git clone https://github.com/your-username/online-chat-app.git
+    git clone https://github.com/strandafredde/Online-Chat-App
     cd online-chat-app
     ```
 
